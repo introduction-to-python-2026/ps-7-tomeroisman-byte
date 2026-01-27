@@ -1,1 +1,22 @@
-
+import numpy as np
+from sklearn.datasets import load_wine
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+wine = load_wine()
+x = wine.data
+y = wine.target
+feature_names = wine.feature_names
+selected_features = [0,1,2]
+for i in selected_features:
+  plt.hist(x[:,i], bins = 15, color = "skyblue", edgecolor = "black")
+  plt.title(f"{feature_names[i]}")
+  plt.xlabel(feature_names[i])
+  plt.ylabel("often used")
+  plt.show()
+  plt.scatter(X[:, selected_features[0]], X[:, selected_features[1]], c=y, cmap='Set1')
+data_df = pd.DataFrame(X[:, selected_features], columns=[feature_names[i] for i in selected_features])
+data_df['target'] = y
+pairplot = sns.pairplot(data_df, hue='target', palette='Set1')
+pairplot.savefig('wine_correlation_scatterplot.png')
+plt.show()
